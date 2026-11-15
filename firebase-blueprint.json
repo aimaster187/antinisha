@@ -1,0 +1,187 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated user account metadata and subscription tier.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Firebase Auth UID of the user." },
+        "username": { "type": "string", "description": "Unique handle chosen by the user." },
+        "fullName": { "type": "string", "description": "Display name." },
+        "email": { "type": "string", "description": "Verified email address." },
+        "phone": { "type": "string", "description": "Optional WhatsApp or phone number." },
+        "authProvider": { "type": "string", "description": "Sign-in provider identifier." },
+        "emailVerified": { "type": "boolean", "description": "Whether email is verified." },
+        "tier": { "type": "string", "enum": ["free", "pro", "ultra"], "description": "Subscription tier." },
+        "status": { "type": "string", "enum": ["active", "suspended"], "description": "Account status." },
+        "lastLoginAt": { "type": "string", "format": "date-time", "description": "Server timestamp of last login." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp of creation." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp of last update." }
+      },
+      "required": ["userId", "username", "fullName", "email", "tier", "status", "createdAt", "updatedAt"]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "Synced AI chat conversation thread.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "model": { "type": "string" },
+        "messageCount": { "type": "integer" },
+        "lastMessagePreview": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "model", "messageCount", "createdAt", "updatedAt"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Message inside a synced AI chat conversation.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "assistant", "system"] },
+        "content": { "type": "string" },
+        "agentName": { "type": "string" },
+        "modelUsed": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "role", "content", "createdAt"]
+    },
+    "MemoryFact": {
+      "title": "MemoryFact",
+      "description": "User-controlled Knowledge Brain memory record.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "category": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "category", "title", "content", "createdAt", "updatedAt"]
+    },
+    "AgentConfig": {
+      "title": "AgentConfig",
+      "description": "Configured AI agent slot (up to 5 active slots).",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "slotIndex": { "type": "integer" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "iconName": { "type": "string" },
+        "instructions": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "paused"] },
+        "permWebResearch": { "type": "boolean" },
+        "permFileRead": { "type": "boolean" },
+        "permFileWrite": { "type": "boolean" },
+        "permDeviceActions": { "type": "boolean" },
+        "permMessaging": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "slotIndex", "name", "role", "status", "createdAt", "updatedAt"]
+    },
+    "AppConfig": {
+      "title": "AppConfig",
+      "description": "Global application flags, version info, and maintenance state.",
+      "type": "object",
+      "properties": {
+        "maintenanceMode": { "type": "boolean" },
+        "latestVersionName": { "type": "string" },
+        "latestVersionCode": { "type": "integer" },
+        "defaultModel": { "type": "string" },
+        "announcementBanner": { "type": "string" },
+        "releaseNotes": { "type": "string" },
+        "updatedBy": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["maintenanceMode", "latestVersionName", "latestVersionCode", "defaultModel", "updatedAt"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Admin broadcast or targeted user notification.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "targetMode": { "type": "string", "enum": ["all", "user"] },
+        "targetUsername": { "type": "string" },
+        "targetUid": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "body", "targetMode", "createdBy", "createdAt"]
+    },
+    "LicenseRecord": {
+      "title": "LicenseRecord",
+      "description": "Subscription and license entitlement record.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "plan": { "type": "string", "enum": ["free", "pro", "ultra"] },
+        "status": { "type": "string", "enum": ["active", "revoked", "expired"] },
+        "source": { "type": "string" },
+        "expiresAtEpochMs": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "plan", "status", "source", "createdAt", "updatedAt"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Immutable administrative security and action audit log.",
+      "type": "object",
+      "properties": {
+        "actorUid": { "type": "string" },
+        "actorEmail": { "type": "string" },
+        "action": { "type": "string" },
+        "target": { "type": "string" },
+        "details": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["actorUid", "action", "target", "details", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Per-user profile and account metadata."
+    },
+    "/users/{userId}/conversations/{conversationId}": {
+      "schema": { "$ref": "#/entities/Conversation" },
+      "description": "User-scoped AI chat conversations."
+    },
+    "/users/{userId}/conversations/{conversationId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/ChatMessage" },
+      "description": "User-scoped messages inside a conversation."
+    },
+    "/users/{userId}/memories/{memoryId}": {
+      "schema": { "$ref": "#/entities/MemoryFact" },
+      "description": "User-scoped Knowledge Brain memories."
+    },
+    "/users/{userId}/agents/{agentId}": {
+      "schema": { "$ref": "#/entities/AgentConfig" },
+      "description": "User-scoped configured AI agents."
+    },
+    "/app_config/{configId}": {
+      "schema": { "$ref": "#/entities/AppConfig" },
+      "description": "Global application configuration readable by authenticated users and editable only by admins."
+    },
+    "/announcements/{announcementId}": {
+      "schema": { "$ref": "#/entities/Announcement" },
+      "description": "Admin announcements targeted to all users or a specific UID."
+    },
+    "/licenses/{licenseId}": {
+      "schema": { "$ref": "#/entities/LicenseRecord" },
+      "description": "Subscription and license records."
+    },
+    "/audit_logs/{logId}": {
+      "schema": { "$ref": "#/entities/AuditLog" },
+      "description": "Admin-only immutable security audit log."
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "NISHA AI",
+  "description": "NISHA AI — The Dark AI: Luxury white personal AI operating environment with Maya 3D Core, Nisha Voice OS, 10D Floating Orb, Four-Edge Lighting, Multi-Agent Orchestrator, Coding Studio, Knowledge Brain, and VIP 10D Admin Control Center.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

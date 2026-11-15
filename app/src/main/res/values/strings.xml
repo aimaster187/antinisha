@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NISHA AI</string>
+    <string name="accessibility_service_label">NISHA AI Screen Context Assistant</string>
+    <string name="accessibility_service_description">Opt-in screen context helper. Reads visible screen text only when you explicitly tap Analyze Screen inside NISHA AI.</string>
+    <string name="notification_channel_assistant">NISHA AI Background Assistant</string>
+    <string name="notification_channel_alerts">NISHA AI Announcements &amp; Tasks</string>
+    <string name="error_network_unavailable">Network unavailable. Check your connection and try again.</string>
+    <string name="error_api_key_missing">Add your Gemini API key in Settings -> API Keys to activate AI responses.</string>
+</resources>
